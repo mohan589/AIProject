@@ -23,12 +23,13 @@ doc_search.save_local(DB_FAISS_PATH)
 #
 # print("Result", docs)
 
-llm = CTransformers(model="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML",
+# Replace the below model with large size model
+llm = CTransformers(model="/Users/mpichikala/personal/Llama-2-7B-Chat-GGML",
                     model_type="llama",
                     max_new_tokens=512,
                     temperature=0.1)
 
-qa = ConversationalRetrievalChain.from_llm(llm, doc_search, retriever=doc_search.as_retriever())
+qa = ConversationalRetrievalChain.from_llm(llm, retriever=doc_search.as_retriever())
 
 while True:
     chat_history = []
