@@ -1,0 +1,7 @@
+langchain
+ctransformers
+sentence-transformers
+faiss-cpu
+langchain_community
+tf_keras
+langchain-huggingface
