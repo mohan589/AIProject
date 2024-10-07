@@ -5,3 +5,11 @@ faiss-cpu
 langchain_community
 tf_keras
 langchain-huggingface
+transformers
+datasets
+evaluate
+accelerate
+torch
+tensorflow
+soundfile
+librosa
