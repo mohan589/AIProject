@@ -34,7 +34,7 @@ qa = ConversationalRetrievalChain.from_llm(llm, retriever=doc_search.as_retrieve
 while True:
     chat_history = []
     #query = "What is the value of  GDP per capita of Finland provided in the data?"
-    query = input(f"Input Prompt: ")
+    query = input("Input Prompt: ")
     if query == 'exit':
         print('Exiting')
         sys.exit()

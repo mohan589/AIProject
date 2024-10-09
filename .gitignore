@@ -3,3 +3,4 @@ vectorstore
 .idea/*
 .venv
 .idea
+.vscode
