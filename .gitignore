@@ -1,2 +1,5 @@
-AIProject
+AIProject/*
 vectorstore
+.idea/*
+.venv
+.idea
