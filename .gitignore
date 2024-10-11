@@ -4,3 +4,4 @@ vectorstore
 .venv
 .idea
 .vscode
+PyTorch/cnn_data
