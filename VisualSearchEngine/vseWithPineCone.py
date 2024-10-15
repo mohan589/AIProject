@@ -60,8 +60,8 @@ def load_image_from_url(url):
 def preprocess_img(img, exp, device):
   img, ratio = preproc(img, exp.test_size)
   img = torch.from_numpy(img).unsqueeze(0).float()  # Add batch dimension
-  # img = img.to(device)  # Move image to MPS device
-  # img = img.to('cpu')  # Convert back to CPU tensor if necessary for further processing
+  img = img.to(device)  # Move image to MPS device
+  img = img.to('cpu')  # Convert back to CPU tensor if necessary for further processing
   return img, ratio
 
 # Detect objects in an image
@@ -97,7 +97,7 @@ def add_embeddings_to_pinecone(index, embeddings, ids):
 
 def process_and_index_images(image_urls, model, exp, index, device):
   for i, url in enumerate(image_urls):
-    if i >= 400:
+    if i >= 1522 and i < 1540:
       print(f"processing url {url}")
       image = load_image_from_url(url)
       if image is not None:
@@ -106,7 +106,7 @@ def process_and_index_images(image_urls, model, exp, index, device):
         embeddings = extract_features_from_boxes(outputs)
         if embeddings.size > 0:
           # Add embeddings to Pinecone with unique IDs
-          # embeddings = torch.tensor(embeddings).to("cpu").numpy()
+          embeddings = torch.tensor(embeddings).to("cpu").numpy()
           print(f"inserting to pine at index {i} of {url}")
           add_embeddings_to_pinecone(index, embeddings, [i])
       else:
@@ -114,7 +114,7 @@ def process_and_index_images(image_urls, model, exp, index, device):
 
 # Search for nearest embeddings in Pinecone
 def search_pinecone(index, query_embedding, top_k=5):
-  result = index.query(query_embedding.tolist(), top_k=top_k)
+  result = index.query(vector=query_embedding.tolist(), top_k=top_k)
   return result
 
 # Query an image URL and search for similar objects
@@ -125,7 +125,7 @@ def query_image(img_url, model, exp, index, device, top_k=5):
       outputs = detect_objects(model, img, exp, device)
       query_embedding = extract_features_from_boxes(outputs)
       if query_embedding.size > 0:
-        # query_embedding = torch.tensor(query_embedding).to("cpu").numpy()
+        query_embedding = torch.tensor(query_embedding).to("cpu").numpy()
         result = search_pinecone(index, query_embedding, top_k=top_k)
         print(f"Found {len(result['matches'])} similar objects")
         return result
