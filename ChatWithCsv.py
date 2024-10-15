@@ -1,10 +1,10 @@
+import sys
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain_community.document_loaders import CSVLoader
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.llms.ctransformers import CTransformers
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-import sys
 
 DB_FAISS_PATH = "vectorstore/db_faiss"
 loader = CSVLoader(file_path='data/2019.csv', encoding='utf-8', csv_args={'delimiter': ','})

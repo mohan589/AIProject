@@ -14,3 +14,11 @@ tensorflow
 soundfile
 librosa
 diffusers
+matplotlib
+torchvision
+PyGithub
+note
+pinecone
+langchain_pinecone
+sentencepiece
+yolox
